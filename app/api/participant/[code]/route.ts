@@ -3,11 +3,12 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
+    const { code } = await params;
     const participant = await prisma.participant.findUnique({
-      where: { code: params.code },
+      where: { code },
     });
 
     if (!participant) {
