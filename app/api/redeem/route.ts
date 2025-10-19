@@ -22,9 +22,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (participant.redeemed) {
+    if (participant.fulfilled) {
       return NextResponse.json(
-        { error: "This gift has already been redeemed" },
+        { error: "This gift has already been fulfilled" },
         { status: 400 }
       );
     }
@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
     const updated = await prisma.participant.update({
       where: { code },
       data: {
-        redeemed: true,
-        redeemedAt: new Date(),
+        fulfilled: true,
+        fulfilledAt: new Date(),
       },
     });
 

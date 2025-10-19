@@ -1,13 +1,15 @@
 -- CreateTable
 CREATE TABLE "Participant" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "fullName" TEXT NOT NULL,
     "email" TEXT,
     "phone" TEXT,
     "code" TEXT NOT NULL,
-    "redeemed" BOOLEAN NOT NULL DEFAULT false,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "redeemedAt" DATETIME
+    "fulfilled" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "fulfilledAt" TIMESTAMP(3),
+
+    CONSTRAINT "Participant_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

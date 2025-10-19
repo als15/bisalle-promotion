@@ -1,41 +1,117 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ChocolatePromotion() {
-  const [qrCode, setQrCode] = useState<string>("");
+  const router = useRouter();
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
-    fetch("/api/qr?url=" + encodeURIComponent(`${baseUrl}/register`))
-      .then((res) => res.json())
-      .then((data) => setQrCode(data.qrCode));
-  }, []);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName,
+          phone,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Registration failed");
+      }
+
+      router.push(`/gift/${data.code}`);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Bisalle Chocolate Promotion
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Scan this QR code to register and receive your gift!
-        </p>
-        {qrCode ? (
-          <div className="bg-white p-4 rounded-lg inline-block shadow-inner">
-            <Image
-              src={qrCode}
-              alt="Registration QR Code"
-              width={256}
-              height={256}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-700 to-orange-600 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
+        <div className="text-center mb-6">
+          <div className="inline-block bg-amber-100 rounded-full p-4 mb-4">
+            <svg
+              className="w-12 h-12 text-amber-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+              />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            Bisalle Chocolate Promotion
+          </h1>
+          <p className="text-gray-600">
+            Register to receive your free chocolate gift!
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Full Name
+            </label>
+            <input
+              type="text"
+              required
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              placeholder="John Doe"
             />
           </div>
-        ) : (
-          <div className="w-64 h-64 bg-gray-200 animate-pulse rounded-lg mx-auto"></div>
-        )}
-        <p className="text-sm text-gray-500 mt-6">
-          One gift per person. Terms and conditions apply.
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              required
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              placeholder="+1234567890"
+            />
+          </div>
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition duration-200"
+          >
+            {loading ? "Registering..." : "Get My Free Chocolate"}
+          </button>
+        </form>
+
+        <p className="text-xs text-gray-500 mt-4 text-center">
+          One gift per person. Valid while supplies last.
         </p>
       </div>
     </div>

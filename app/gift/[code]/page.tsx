@@ -57,16 +57,16 @@ export default function GiftPage() {
     );
   }
 
-  if (participant.redeemed) {
+  if (participant.fulfilled) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-500 to-gray-700 p-4">
         <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            Already Redeemed
+            Already Fulfilled
           </h1>
           <p className="text-gray-600">
             This gift has already been claimed on{" "}
-            {new Date(participant.redeemedAt).toLocaleDateString()}.
+            {new Date(participant.fulfilledAt).toLocaleDateString()}.
           </p>
         </div>
       </div>
