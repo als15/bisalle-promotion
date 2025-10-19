@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { Card, Typography, Space, Button, Spin, Alert, Row, Col } from "antd";
+import { CheckCircleOutlined, CloseCircleOutlined, GiftOutlined } from "@ant-design/icons";
+import Image from "next/image";
+
+const { Title, Text } = Typography;
 
 export default function RedeemPage() {
   const params = useParams();
@@ -57,118 +62,169 @@ export default function RedeemPage() {
     }
   };
 
+  const PageWrapper = ({ children }: { children: React.ReactNode }) => (
+    <div
+      className="min-h-screen flex items-center justify-center p-4"
+      style={{
+        backgroundImage: "url('/chocolate-balls-background.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        position: 'relative'
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg, rgba(48, 24, 180, 0.85) 0%, rgba(68, 205, 170, 0.75) 100%)',
+          backdropFilter: 'blur(2px)'
+        }}
+      />
+      <Row justify="center" style={{ width: '100%', maxWidth: 1200, position: 'relative', zIndex: 1, padding: '0 16px' }}>
+        <Col xs={24} sm={20} md={16} lg={12} xl={10}>
+          {children}
+        </Col>
+      </Row>
+    </div>
+  );
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600">
-        <div className="text-white text-xl">Loading...</div>
-      </div>
+      <PageWrapper>
+        <Card style={{ borderRadius: 24, boxShadow: '0 20px 60px rgba(0,0,0,0.3)', textAlign: 'center' }}>
+          <Spin size="large" />
+          <div style={{ marginTop: 16 }}>
+            <Text>טוען...</Text>
+          </div>
+        </Card>
+      </PageWrapper>
     );
   }
 
   if (error && !participant) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-500 to-orange-600 p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-          <h1 className="text-3xl font-bold text-red-600 mb-4">Error</h1>
-          <p className="text-gray-600">{error}</p>
-        </div>
-      </div>
+      <PageWrapper>
+        <Card style={{ borderRadius: 24, boxShadow: '0 20px 60px rgba(0,0,0,0.3)', textAlign: 'center' }}>
+          <Space direction="vertical" size="large" style={{ width: '100%' }}>
+            <CloseCircleOutlined style={{ fontSize: 64, color: '#ff4d4f' }} />
+            <Title level={2}>שגיאה</Title>
+            <Text type="secondary">{error}</Text>
+          </Space>
+        </Card>
+      </PageWrapper>
     );
   }
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-600 p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-          <div className="inline-block bg-green-100 rounded-full p-4 mb-4">
-            <svg
-              className="w-16 h-16 text-green-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            Gift Redeemed!
-          </h1>
-          <p className="text-gray-600 mb-2">
-            <span className="font-semibold">{participant.fullName}</span> has
-            successfully received their gift.
-          </p>
-          <p className="text-sm text-gray-500">
-            Redeemed on {new Date(participant.redeemedAt).toLocaleString()}
-          </p>
-        </div>
-      </div>
+      <PageWrapper>
+        <Card style={{ borderRadius: 24, boxShadow: '0 20px 60px rgba(0,0,0,0.3)', textAlign: 'center' }}>
+          <Space direction="vertical" size="large" style={{ width: '100%' }}>
+            <div style={{ marginBottom: 24 }}>
+              <Image src="/logo.svg" alt="ביסַלֶה" width={200} height={100} style={{ margin: '0 auto' }} />
+            </div>
+            <CheckCircleOutlined style={{ fontSize: 64, color: '#44cdaa' }} />
+            <Title level={2}>המתנה מומשה בהצלחה!</Title>
+            <div>
+              <Text strong style={{ fontSize: 18 }}>{participant.fullName}</Text>
+              <br />
+              <Text type="secondary">קיבל/ה את המתנה</Text>
+            </div>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              מומש בתאריך: {new Date(participant.fulfilledAt).toLocaleString('he-IL')}
+            </Text>
+          </Space>
+        </Card>
+      </PageWrapper>
     );
   }
 
-  if (participant?.redeemed) {
+  if (participant?.fulfilled) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-500 to-gray-700 p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            Already Redeemed
-          </h1>
-          <p className="text-gray-600 mb-2">
-            This gift was already claimed by{" "}
-            <span className="font-semibold">{participant.fullName}</span>.
-          </p>
-          <p className="text-sm text-gray-500">
-            Redeemed on {new Date(participant.redeemedAt).toLocaleString()}
-          </p>
-        </div>
-      </div>
+      <PageWrapper>
+        <Card style={{ borderRadius: 24, boxShadow: '0 20px 60px rgba(0,0,0,0.3)', textAlign: 'center' }}>
+          <Space direction="vertical" size="large" style={{ width: '100%' }}>
+            <div style={{ marginBottom: 24 }}>
+              <Image src="/logo.svg" alt="ביסַלֶה" width={200} height={100} style={{ margin: '0 auto' }} />
+            </div>
+            <CloseCircleOutlined style={{ fontSize: 64, color: '#8c8c8c' }} />
+            <Title level={2}>כבר נוצל</Title>
+            <div>
+              <Text type="secondary">המתנה כבר נוצלה על ידי</Text>
+              <br />
+              <Text strong style={{ fontSize: 18 }}>{participant.fullName}</Text>
+            </div>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              מומש בתאריך: {new Date(participant.fulfilledAt).toLocaleString('he-IL')}
+            </Text>
+          </Space>
+        </Card>
+      </PageWrapper>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Redeem Gift
-        </h1>
-
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <p className="text-sm font-semibold text-blue-900 mb-1">
-            Participant:
-          </p>
-          <p className="text-lg font-bold text-blue-800">
-            {participant.fullName}
-          </p>
-          {participant.email && (
-            <p className="text-sm text-blue-700 mt-1">{participant.email}</p>
-          )}
-          {participant.phone && (
-            <p className="text-sm text-blue-700 mt-1">{participant.phone}</p>
-          )}
-        </div>
-
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-            {error}
+    <PageWrapper>
+      <Card style={{ borderRadius: 24, boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
+        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ marginBottom: 24 }}>
+              <Image src="/logo.svg" alt="ביסַלֶה" width={200} height={100} style={{ margin: '0 auto' }} />
+            </div>
+            <GiftOutlined style={{ fontSize: 48, color: '#3018b4', marginBottom: 16 }} />
+            <Title level={2} style={{ marginBottom: 8 }}>
+              מימוש מתנה
+            </Title>
           </div>
-        )}
 
-        <button
-          onClick={handleRedeem}
-          disabled={redeeming}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-4 rounded-lg transition duration-200 text-lg"
-        >
-          {redeeming ? "Processing..." : "Confirm & Give Gift"}
-        </button>
+          <Alert
+            message="פרטי משתתף:"
+            description={
+              <div style={{ textAlign: 'center', marginTop: 8 }}>
+                <Text strong style={{ fontSize: 18, display: 'block' }}>
+                  {participant.fullName}
+                </Text>
+                {participant.email && (
+                  <Text type="secondary" style={{ display: 'block' }} dir="ltr">
+                    {participant.email}
+                  </Text>
+                )}
+                {participant.phone && (
+                  <Text type="secondary" style={{ display: 'block' }} dir="ltr">
+                    {participant.phone}
+                  </Text>
+                )}
+              </div>
+            }
+            type="info"
+            showIcon
+          />
 
-        <p className="text-xs text-gray-500 mt-4">
-          Click the button above to mark this gift as redeemed
-        </p>
-      </div>
-    </div>
+          {error && (
+            <Alert message={error} type="error" showIcon />
+          )}
+
+          <Button
+            type="primary"
+            onClick={handleRedeem}
+            loading={redeeming}
+            block
+            size="large"
+            style={{ height: 48 }}
+            icon={<CheckCircleOutlined />}
+          >
+            {redeeming ? 'מעבד...' : 'אישור ומסירת מתנה'}
+          </Button>
+
+          <Text type="secondary" style={{ display: 'block', textAlign: 'center', fontSize: 12 }}>
+            לחץ על הכפתור למעלה כדי לסמן את המתנה כמומשת
+          </Text>
+        </Space>
+      </Card>
+    </PageWrapper>
   );
 }

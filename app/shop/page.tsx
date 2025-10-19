@@ -81,7 +81,7 @@ export default function ShopScan() {
           backdropFilter: 'blur(2px)'
         }}
       />
-      <Row justify="center" style={{ width: '100%', maxWidth: 1200, position: 'relative', zIndex: 1 }}>
+      <Row justify="center" style={{ width: '100%', maxWidth: 1200, position: 'relative', zIndex: 1, padding: '0 16px' }}>
         <Col xs={24} sm={20} md={16} lg={12} xl={10}>
           <Card style={{ borderRadius: 24, boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
             <Space direction="vertical" size="large" style={{ width: '100%' }}>

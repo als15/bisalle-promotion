@@ -26,7 +26,8 @@ export default function GiftPage() {
         const data = await response.json();
         setParticipant(data);
 
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+        // Use window.location.origin to ensure we use the current domain
+        const baseUrl = window.location.origin;
         const qrResponse = await fetch(
           "/api/qr?url=" + encodeURIComponent(`${baseUrl}/redeem/${code}`)
         );
@@ -64,7 +65,7 @@ export default function GiftPage() {
           backdropFilter: 'blur(2px)'
         }}
       />
-      <Row justify="center" style={{ width: '100%', maxWidth: 1200, position: 'relative', zIndex: 1 }}>
+      <Row justify="center" style={{ width: '100%', maxWidth: 1200, position: 'relative', zIndex: 1, padding: '0 16px' }}>
         <Col xs={24} sm={20} md={16} lg={12} xl={10}>
           {children}
         </Col>
