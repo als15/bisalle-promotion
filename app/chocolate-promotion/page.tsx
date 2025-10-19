@@ -83,10 +83,10 @@ export default function ChocolatePromotion() {
                   }}
                 />
                 <Title level={2} style={{ marginBottom: 8 }}>
-                  מבצע שוקולד ביסַלֶה
+                  מבצע כדורי השוקולד של ביסַלֶה
                 </Title>
                 <Text type="secondary" style={{ fontSize: 16 }}>
-                  הירשם כדי לקבל שוקולד במתנה!
+                  הירשם כדי לקבל כדור שוקולד במתנה!
                 </Text>
               </div>
 
