@@ -40,8 +40,29 @@ export default function ChocolatePromotion() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#3018b4] to-[#44cdaa] p-4">
-      <Row justify="center" style={{ width: "100%", maxWidth: 1200 }}>
+    <div
+      className="min-h-screen flex items-center justify-center p-4"
+      style={{
+        backgroundImage: "url('/chocolate-balls-background.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+      }}
+    >
+      {/* Dark overlay for better readability */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "linear-gradient(135deg, rgba(48, 24, 180, 0.85) 0%, rgba(68, 205, 170, 0.75) 100%)",
+          backdropFilter: "blur(2px)",
+        }}
+      />
+      <Row justify="center" style={{ width: "100%", maxWidth: 1200, position: "relative", zIndex: 1 }}>
         <Col xs={24} sm={20} md={16} lg={12} xl={10}>
           <Card
             style={{
