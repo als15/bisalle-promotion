@@ -14,8 +14,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.1.0",
     "@prisma/client": "^6.17.1",
     "@tailwindcss/postcss": "^4.1.14",
+    "antd": "^5.27.5",
     "next": "^15.5.5",
     "prisma": "^6.17.1",
     "qrcode": "^1.5.4",
