@@ -42,33 +42,33 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-500 to-teal-600 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#3018b4] to-[#44cdaa] p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
         <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">
-          Register for Your Gift
+          הרשמה למתנה
         </h1>
         <p className="text-gray-600 mb-6 text-center">
-          Fill in your details to receive your gift code
+          מלא את הפרטים כדי לקבל את קוד המתנה שלך
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Full Name
+              שם מלא
             </label>
             <input
               type="text"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="John Doe"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3018b4] focus:border-transparent"
+              placeholder="ישראל ישראלי"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Contact Method
+              איך ליצור קשר
             </label>
             <div className="flex gap-4 mb-2">
               <label className="flex items-center">
@@ -77,9 +77,9 @@ export default function Register() {
                   value="email"
                   checked={contactType === "email"}
                   onChange={() => setContactType("email")}
-                  className="mr-2"
+                  className="ml-2"
                 />
-                Email
+                אימייל
               </label>
               <label className="flex items-center">
                 <input
@@ -87,9 +87,9 @@ export default function Register() {
                   value="phone"
                   checked={contactType === "phone"}
                   onChange={() => setContactType("phone")}
-                  className="mr-2"
+                  className="ml-2"
                 />
-                Phone
+                טלפון
               </label>
             </div>
             <input
@@ -97,12 +97,13 @@ export default function Register() {
               required
               value={contactValue}
               onChange={(e) => setContactValue(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3018b4] focus:border-transparent"
               placeholder={
                 contactType === "email"
-                  ? "john@example.com"
-                  : "+1234567890"
+                  ? "example@email.com"
+                  : "050-1234567"
               }
+              dir="ltr"
             />
           </div>
 
@@ -115,14 +116,14 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition duration-200"
+            className="w-full bg-[#3018b4] hover:bg-[#3018b4]/90 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition duration-200"
           >
-            {loading ? "Registering..." : "Get My Gift Code"}
+            {loading ? "שולח..." : "קבל קוד מתנה"}
           </button>
         </form>
 
         <p className="text-xs text-gray-500 mt-4 text-center">
-          Your information will only be used for this promotion. One gift per person.
+          המידע שלך ישמש רק למבצע זה. מתנה אחת לאדם.
         </p>
       </div>
     </div>

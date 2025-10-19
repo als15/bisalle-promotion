@@ -40,12 +40,12 @@ export default function ChocolatePromotion() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-700 to-orange-600 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#3018b4] to-[#44cdaa] p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
         <div className="text-center mb-6">
-          <div className="inline-block bg-amber-100 rounded-full p-4 mb-4">
+          <div className="inline-block bg-[#44cdaa]/20 rounded-full p-4 mb-4">
             <svg
-              className="w-12 h-12 text-amber-700"
+              className="w-12 h-12 text-[#3018b4]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -59,39 +59,40 @@ export default function ChocolatePromotion() {
             </svg>
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            Bisalle Chocolate Promotion
+            מבצע שוקולד ביסַלֶה
           </h1>
           <p className="text-gray-600">
-            Register to receive your free chocolate gift!
+            הירשם כדי לקבל שוקולד במתנה!
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Full Name
+              שם מלא
             </label>
             <input
               type="text"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-              placeholder="John Doe"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3018b4] focus:border-transparent"
+              placeholder="ישראל ישראלי"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Phone Number
+              מספר טלפון
             </label>
             <input
               type="tel"
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-              placeholder="+1234567890"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3018b4] focus:border-transparent"
+              placeholder="050-1234567"
+              dir="ltr"
             />
           </div>
 
@@ -104,14 +105,14 @@ export default function ChocolatePromotion() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition duration-200"
+            className="w-full bg-[#3018b4] hover:bg-[#3018b4]/90 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition duration-200"
           >
-            {loading ? "Registering..." : "Get My Free Chocolate"}
+            {loading ? "שולח..." : "קבל שוקולד במתנה"}
           </button>
         </form>
 
         <p className="text-xs text-gray-500 mt-4 text-center">
-          One gift per person. Valid while supplies last.
+          מתנה אחת לאדם. בכפוף למלאי.
         </p>
       </div>
     </div>

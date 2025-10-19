@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Bisalle Promotion",
-  description: "Scan to receive your gift",
+  title: "ביסַלֶה - מבצע שוקולד",
+  description: "סרוק כדי לקבל את המתנה שלך",
 };
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="he" dir="rtl">
       <body className="antialiased">{children}</body>
     </html>
   );

@@ -56,12 +56,12 @@ export default function ShopScan() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-700 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#3018b4] to-[#44cdaa] p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
         <div className="text-center mb-6">
-          <div className="inline-block bg-indigo-100 rounded-full p-4 mb-4">
+          <div className="inline-block bg-[#44cdaa]/20 rounded-full p-4 mb-4">
             <svg
-              className="w-12 h-12 text-indigo-600"
+              className="w-12 h-12 text-[#3018b4]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -75,39 +75,43 @@ export default function ShopScan() {
             </svg>
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            Shop Scanner
+            סורק חנות
           </h1>
-          <p className="text-gray-600">Scan customer QR codes to fulfill gifts</p>
+          <p className="text-gray-600">סרוק קודי QR של לקוחות למימוש מתנות</p>
         </div>
 
         <form onSubmit={handleScan} className="space-y-4 mb-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Enter Code or Scan QR
+              הכנס קוד או סרוק QR
             </label>
             <input
               type="text"
               required
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono text-lg"
-              placeholder="Enter redemption code"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3018b4] focus:border-transparent font-mono text-lg"
+              placeholder="הכנס קוד מימוש"
               autoFocus
+              dir="ltr"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition duration-200"
+            className="w-full bg-[#3018b4] hover:bg-[#3018b4]/90 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition duration-200"
           >
-            {loading ? "Processing..." : "Fulfill Gift"}
+            {loading ? "מעבד..." : "מימוש מתנה"}
           </button>
         </form>
 
         {error && (
-          <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+          <div className="bg-red-50 border-r-4 border-red-500 p-4 mb-4">
             <div className="flex">
+              <div className="mr-3">
+                <p className="text-sm text-red-700 font-medium">{error}</p>
+              </div>
               <div className="flex-shrink-0">
                 <svg
                   className="h-5 w-5 text-red-400"
@@ -121,16 +125,24 @@ export default function ShopScan() {
                   />
                 </svg>
               </div>
-              <div className="ml-3">
-                <p className="text-sm text-red-700 font-medium">{error}</p>
-              </div>
             </div>
           </div>
         )}
 
         {result && (
-          <div className="bg-green-50 border-l-4 border-green-500 p-4">
+          <div className="bg-green-50 border-r-4 border-green-500 p-4">
             <div className="flex items-start">
+              <div className="mr-3 flex-1">
+                <h3 className="text-sm font-medium text-green-800">
+                  המתנה מומשה בהצלחה!
+                </h3>
+                <div className="mt-2 text-sm text-green-700">
+                  <p className="font-semibold">{result.fullName}</p>
+                  <p className="text-xs text-green-600 mt-1" dir="ltr">
+                    {result.phone || result.email}
+                  </p>
+                </div>
+              </div>
               <div className="flex-shrink-0">
                 <svg
                   className="h-6 w-6 text-green-400"
@@ -146,24 +158,13 @@ export default function ShopScan() {
                   />
                 </svg>
               </div>
-              <div className="ml-3 flex-1">
-                <h3 className="text-sm font-medium text-green-800">
-                  Gift Fulfilled Successfully!
-                </h3>
-                <div className="mt-2 text-sm text-green-700">
-                  <p className="font-semibold">{result.fullName}</p>
-                  <p className="text-xs text-green-600 mt-1">
-                    {result.phone || result.email}
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         )}
 
         <div className="mt-6 pt-6 border-t border-gray-200">
           <p className="text-xs text-gray-500 text-center">
-            For shop staff use only
+            לשימוש צוות החנות בלבד
           </p>
         </div>
       </div>
